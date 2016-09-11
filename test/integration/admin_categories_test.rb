@@ -22,4 +22,17 @@ class AdminCategoriesTest < ActionDispatch::IntegrationTest
     refute page.has_content?("Admin Categories")
     assert page.has_content?("The page you were looking for doesn't exist.")
   end
+
+  test 'logged in admin can make a new category' do
+    admin = User.create(username: 'bob',
+                        password: 'yellow',
+                        role: 1)
+
+    ApplicationController.any_instance.stubs(:current_user).returns(admin)
+    visit new_admin_category_path
+    assert page.has_content?("Create a New Category")
+
+
+  end
+
 end
