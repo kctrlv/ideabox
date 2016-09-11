@@ -10,7 +10,6 @@ class UserLogoutTest < ActionDispatch::IntegrationTest
     click_button "Login"
 
     click_link "Logout"
-    save_and_open_page
     refute page.has_content?("Signed in as: dave")
   end
 end
