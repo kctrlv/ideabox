@@ -5,6 +5,8 @@ class UserCreationTest < ActionDispatch::IntegrationTest
     visit new_user_path
     fill_in "Username", with: "davidos"
     fill_in "Password", with: "password"
+    fill_in "Confirm Password", with: "password"
+
     click_button "Create Account"
 
     assert page.has_content?("Welcome, davidos!")

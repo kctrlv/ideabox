@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_login, only: [:show]
+
   def new
     @user = User.new
   end
@@ -20,6 +22,13 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password, :password_confirmation)
+  end
+
+  def require_login
+    redirect_to login_path unless logged_in?
+    if !logged_in?
+      flash[:alert] = "You're not logged in"
+    end
   end
 end
